@@ -40,6 +40,7 @@ INSERT INTO vehicles (make, model, year, price, owner_id)
 
 
     -- PROBLEM 1
+    --Conventional to use LEFT OUTER
     SELECT *
       FROM vehicles
       RIGHT OUTER JOIN owners
@@ -55,3 +56,13 @@ INSERT INTO vehicles (make, model, year, price, owner_id)
       GROUP BY o.id
       HAVING COUNT(*) >= 1
       ORDER BY o.first_name;
+
+  -- PROBLEM 3
+  SELECT o.first_name, Cast(AVG(v.price) AS INT), COUNT(*)
+    FROM owners AS o 
+      JOIN vehicles AS v 
+      ON o.id = v.owner_id 
+    GROUP BY o.id 
+    HAVING COUNT(*) >= 1 
+      AND AVG(v.price) > 10000
+    ORDER BY o.first_name DESC;
