@@ -37,3 +37,21 @@ INSERT INTO vehicles (make, model, year, price, owner_id)
     ('Lexus', 'ES350', 1998, 1599.99, 6),
     ('BMW', '300', 2012, 22999.99, 6),
     ('BMW', '700', 2015, 52999.99, 6);
+
+
+    -- PROBLEM 1
+    SELECT *
+      FROM vehicles
+      RIGHT OUTER JOIN owners
+      ON vehicles.owner_id = owners.id;
+
+
+    -- PROBLEM 2
+    SELECT o.first_name, COUNT(*)
+      -- vehicles = left, owners = right
+      FROM vehicles AS v
+        JOIN owners AS o
+        ON o.id = v.owner_id
+      GROUP BY o.id
+      HAVING COUNT(*) >= 1
+      ORDER BY o.first_name;
